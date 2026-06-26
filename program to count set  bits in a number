@@ -1,0 +1,14 @@
+#include <iostream>
+int countSetBits(int n) {
+    int count = 0;
+    while (n > 0) {
+        n &= (n - 1); 
+        count++;
+    }
+    return count;
+}
+int main() {
+    int number = 13; 
+    std::cout << "Number of set bits: " << countSetBits(number) << std::endl;
+    return 0;
+}
