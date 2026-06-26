@@ -1,0 +1,47 @@
+#include <stdio.h>
+#include <string.h>
+void decimalToBinary(int decimal, char *binaryStr) {
+    int index = 0;
+    if (decimal == 0) {
+        binaryStr[index++] = '0';
+        binaryStr[index] = '\0';
+        return;
+    }
+    char temp[64];
+    int tempIndex = 0;
+    while (decimal > 0) {
+        temp[tempIndex++] = (decimal % 2) + '0';
+        decimal /= 2;
+    }
+    for (int i = tempIndex - 1; i >= 0; i--) {
+        binaryStr[index++] = temp[i];
+    }
+    binaryStr[index] = '\0'; 
+}
+int binaryToDecimal(const char *binaryStr) {
+    int decimal = 0;
+    int base = 1;
+    int length = strlen(binaryStr);
+    for (int i = length - 1; i >= 0; i--) {
+        if (binaryStr[i] == '1') {
+            decimal += base;
+        }
+        base *= 2; 
+    }
+    return decimal;
+}
+int main() {
+    int originalDecimal;
+    char binaryString[64];
+    int convertedDecimal;
+    printf("Enter a positive decimal number: ");
+    if (scanf("%d", &originalDecimal) != 1 || originalDecimal < 0) {
+        printf("Please enter a valid positive integer.\n");
+        return 1;
+    }
+    decimalToBinary(originalDecimal, binaryString);
+    printf("Binary Representation: %s\n", binaryString);
+    convertedDecimal = binaryToDecimal(binaryString);
+    printf("Converted back to Decimal: %d\n", convertedDecimal);
+    return 0;
+}
